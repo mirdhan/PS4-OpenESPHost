@@ -1,0 +1,7 @@
+{
+    "ssid": "PS4_JAILBREAK",
+    "password": "",
+    "ip_address": "10.10.10.1",
+    "subnet": "255.255.255.0",
+    "gateway": "10.10.10.1"
+}
