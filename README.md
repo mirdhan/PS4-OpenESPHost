@@ -4,9 +4,9 @@
   <p align="center">
     An open-source firmware for the ESP8266. Execute payload on your PS4 5.05.
     <br>
-    <a href="https://github.com/baptistecdr/ps4/issues/new">Report bug</a>
+    <a href="https://github.com/baptistecdr/PS4-OpenESPHost/issues/new">Report bug</a>
     ·
-    <a href="https://github.com/baptistecdr/ps4/issues/new">Request feature</a>
+    <a href="https://github.com/baptistecdr/PS4-OpenESPHost/new">Request feature</a>
   </p>
 </p>
 
@@ -37,7 +37,7 @@
 
 ## Bugs and feature requests
 
-Have a bug or a feature request? Please first search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/baptistecdr/ps4/issues/new).
+Have a bug or a feature request? Please first search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/baptistecdr/PS4-OpenESPHost/issues/new).
 
 ## Contributing
 
