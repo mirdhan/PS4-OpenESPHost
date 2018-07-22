@@ -34,6 +34,7 @@
 - VV1LD/Stooged: Kernel Dumper
 - Stooged: App2USB
 - Stooged: DB_SG_Backup
+- ValentinBreiz: Linux Loader
 
 ## Bugs and feature requests
 
