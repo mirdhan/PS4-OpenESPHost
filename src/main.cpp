@@ -51,11 +51,14 @@ void loadConfiguration(const char *filename, Configuration &config)
 
 void saveConfiguration(const char *filename, const Configuration &config)
 {
+    char *backupFilename = strcat((char *)filename, ".bak");
+    SPIFFS.rename(filename, backupFilename);
     // Open file for writing
     File file = SPIFFS.open(filename, "w"); // Opens a file for writing only. Overwrites the file if the file exists. If the file does not exist, creates a new file for writing.
     if (!file)
     {
         Serial.println("Failed to create file");
+        SPIFFS.rename(backupFilename, filename);
         return;
     }
 
@@ -75,6 +78,7 @@ void saveConfiguration(const char *filename, const Configuration &config)
     if (root.printTo(file) == 0)
     {
         Serial.println("Failed to write to file");
+        SPIFFS.rename(backupFilename, filename);
     }
 
     jsonBuffer.clear();

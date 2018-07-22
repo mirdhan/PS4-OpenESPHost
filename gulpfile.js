@@ -8,7 +8,7 @@ const useref = require('gulp-useref');
 const gulpif = require('gulp-if');
 
 gulp.task('clean', function () {
-    return del(['data/*', '!data/settings.json']);
+    return del(['data/*']);
 });
 
 gulp.task('www', function () {

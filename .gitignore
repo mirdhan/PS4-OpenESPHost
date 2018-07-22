@@ -7,4 +7,4 @@ www/.idea
 .vscode/launch.json
 .DS_Store
 node_modules
-data/**/*.gz
+data/**
