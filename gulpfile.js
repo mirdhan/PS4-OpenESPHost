@@ -6,7 +6,6 @@ const gzip = require('gulp-gzip');
 const del = require('del');
 const useref = require('gulp-useref');
 const gulpif = require('gulp-if');
-const inlinesource = require('gulp-inline-source');
 
 gulp.task('clean', function () {
     return del(['data/*', '!data/settings.json']);
@@ -14,13 +13,7 @@ gulp.task('clean', function () {
 
 gulp.task('www', function () {
     return gulp.src('www/**')
-        .pipe(useref())
         .pipe(plumber())
-        .pipe(gulpif('*.html', inlinesource({
-            base: 'www/',
-            disabledTypes: ['svg', 'img']
-        })))
-        .pipe(gulpif('*.css', cleancss()))
         .pipe(gulpif('*.html', htmlmin({
             "caseSensitive": false,
             "collapseBooleanAttributes": true,
@@ -54,7 +47,8 @@ gulp.task('www', function () {
             "trimCustomFragments": true,
             "useShortDoctype": true
         })))
-        .pipe(gzip())
+        .pipe(gulpif('*.css', cleancss()))
+        .pipe(gulpif("!*.json", gzip()))
         .pipe(gulp.dest('data'));
 });
 

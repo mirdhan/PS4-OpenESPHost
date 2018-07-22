@@ -6,15 +6,33 @@
     <link href="css/dashboard.min.css" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/ipaddr.min.js"></script>
+    <script src="js/configuration.min.js"></script>
+    <script src="js/case.min.js"></script>
     <script src="js/jailbreak.min.js" defer="defer"></script>
     <script>
         function navigate(file) {
-            $.get(`/payloads/${file}`, function (data) {
+            $.get(`${file}`, function (data) {
                 $("#content").html(data);
                 $("#run-exploit").click(function () {
                     exploit();
                 });
             });
+        }
+
+        $.get('/esp8266/information', function (data) {
+            $.each(data, function (key, value) {
+                $("tbody").append(`<tr><td>${Case.title(key)}</td><td>${value}</td></tr>`);
+
+            });
+        });
+
+        function restartEsp() {
+            $.post('/esp8266/restart');
+        }
+
+        function resetEsp() {
+            $.post('/esp8266/reset');
         }
     </script>
 </head>
@@ -30,10 +48,10 @@
                 <span>Homebrew Exploits</span></h6>
                 <ul class="flex-column mb-2 nav">
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick='navigate("hen.html")'>HEN</a>
+                        <a href="#" class="nav-link" onclick='navigate("payloads/hen.html")'>HEN</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick='navigate("enable-vr.html")'>Virtual Reality</a>
+                        <a href="#" class="nav-link" onclick='navigate("payloads/enable-vr.html")'>Virtual Reality</a>
                     </li>
                 </ul>
                 <h6 class="align-items-center d-flex justify-content-between mb-1 mt-4 px-3 sidebar-heading text-muted">
@@ -41,13 +59,17 @@
                 </h6>
                 <ul class="flex-column mb-2 nav">
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick='navigate("app-to-usb.html")'>App2USB</a>
+                        <a href="#" class="nav-link" onclick='navigate("payloads/app-to-usb.html")'>App2USB</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick='navigate("game-dumper.html")'>Game Dumper</a>
+                        <a href="#" class="nav-link" onclick='navigate("payloads/game-dumper.html")'>Game Dumper</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick='navigate("db-sg-backup.html")'>Backup Data</a>
+                        <a href="#" class="nav-link" onclick='navigate("payloads/db-sg-backup.html")'>Backup Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick='navigate("payloads/cache-install.html")'>Reinstall
+                            Data</a>
                     </li>
                 </ul>
                 <h6 class="align-items-center d-flex justify-content-between mb-1 mt-4 px-3 sidebar-heading text-muted">
@@ -55,7 +77,10 @@
                 </h6>
                 <ul class="flex-column mb-2 nav">
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick='navigate("ftp.html")'>FTP</a>
+                        <a href="#" class="nav-link" onclick='navigate("payloads/ftp.html")'>FTP</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick='navigate("payloads/ftp-rw.html")'>FTP (RW)</a>
                     </li>
                 </ul>
                 <h6 class="align-items-center d-flex justify-content-between mb-1 mt-4 px-3 sidebar-heading text-muted">
@@ -63,10 +88,18 @@
                 </h6>
                 <ul class="flex-column mb-2 nav">
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick='navigate("kernel-dumper.html")'>Kernel Dumper</a>
+                        <a href="#" class="nav-link" onclick='navigate("payloads/kernel-dumper.html")'>Kernel Dumper</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick='navigate("linux-loader.html")'>Linux Loader</a>
+                        <a href="#" class="nav-link" onclick='navigate("payloads/linux-loader.html")'>Linux Loader</a>
+                    </li>
+                </ul>
+                <h6 class="align-items-center d-flex justify-content-between mb-1 mt-4 px-3 sidebar-heading text-muted">
+                    <span>Administration</span>
+                </h6>
+                <ul class="flex-column mb-2 nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick='navigate("admin/configuration.html")'>Configuration</a>
                     </li>
                 </ul>
             </div>
@@ -82,6 +115,31 @@
                             This project enables or disables homebrews for PS4 under firmware 5.05.<br>The firmware is
                             maintained by the community, you can propose your changes and report your problems via the
                             GitHub : <a href="https://github.com/baptistecdr/PS4-OpenESPHost">https://github.com/baptistecdr/PS4-OpenESPHost</a>.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <h5 class="card-header">Information</h5>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn btn-warning btn-block" onclick="restartEsp()">
+                                        Restart
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-danger btn-block" onclick="resetEsp()">Reset
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

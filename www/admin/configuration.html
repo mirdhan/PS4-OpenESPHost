@@ -1,0 +1,97 @@
+<div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none">
+</div>
+<div class="card">
+    <h5 class="card-header">Configuration</h5>
+    <div class="card-body">
+        <div class="card-text">
+            <h4 class="text-center">Wi-Fi</h4>
+            <form>
+                <div class="form-group row">
+                    <label for="ssid" class="col-sm-2 col-form-label">SSID</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="ssid" maxlength="32">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="password" maxlength="63">
+                    </div>
+                </div>
+            </form>
+            <h4 class="text-center">Network</h4>
+            <div class="form-group row">
+                <label for="ip-address-1" class="col-sm-2 col-form-label">IP Address</label>
+                <div class="col-sm-10 input-group">
+                    <input type="number" class="form-control seginput" id="ip-address-1" min="0" max="255" size="3">
+                    <input type="number" class="form-control seginput" id="ip-address-2" min="0" max="255" size="3">
+                    <input type="number" class="form-control seginput" id="ip-address-3" min="0" max="255" size="3">
+                    <input type="number" class="form-control seginput" id="ip-address-4" min="0" max="255" size="3">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="subnet-1" class="col-sm-2 col-form-label">Subnet</label>
+                <div class="col-sm-10 input-group">
+                    <input type="number" class="form-control seginput" id="subnet-1" min="0" max="255" size="3">
+                    <input type="number" class="form-control seginput" id="subnet-2" min="0" max="255" size="3">
+                    <input type="number" class="form-control seginput" id="subnet-3" min="0" max="255" size="3">
+                    <input type="number" class="form-control seginput" id="subnet-4" min="0" max="255" size="3">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="gateway-1" class="col-sm-2 col-form-label">Gateway</label>
+                <div class="col-sm-10 input-group">
+                    <input type="number" class="form-control seginput" id="gateway-1" min="0" max="255" size="3">
+                    <input type="number" class="form-control seginput" id="gateway-2" min="0" max="255" size="3">
+                    <input type="number" class="form-control seginput" id="gateway-3" min="0" max="255" size="3">
+                    <input type="number" class="form-control seginput" id="gateway-4" min="0" max="255" size="3">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary btn-block" id="save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var alertBs = $(".alert");
+    var ssid = $("#ssid");
+    var password = $("#password");
+    var ipAddress = [$("#ip-address-1"), $("#ip-address-2"), $("#ip-address-3"), $("#ip-address-4")];
+    var subnet = [$("#subnet-1"), $("#subnet-2"), $("#subnet-3"), $("#subnet-4")];
+    var gateway = [$("#gateway-1"), $("#gateway-2"), $("#gateway-3"), $("#gateway-4")];
+
+    $.get("/settings.json").done(function (data) {
+        var settings = new Configuration(data.ssid, data.password, data.ip_address, data.subnet, data.gateway);
+        ssid.val(settings.ssid);
+        password.val(settings.password);
+        for (var i = 0; i < settings.ipAddress.octets.length; i++) {
+            ipAddress[i].val(settings.ipAddress.octets[i]);
+            subnet[i].val(settings.subnet.octets[i]);
+            gateway[i].val(settings.gateway.octets[i]);
+        }
+    }).fail(function (data) {
+        alertBs.removeClass('alert-success alert-danger');
+        alertBs.addClass('alert-danger');
+        alertBs.text(data.responseText);
+        alertBs.show();
+        $("#save").prop('disabled', true);
+    });
+
+    $("#save").click(function () {
+        var settings = new Configuration(ssid.val(), password.val(), ipAddress.map(o => o.val()).join('.'), subnet.map(o => o.val()).join('.'), gateway.map(o => o.val()).join('.'));
+        settings.save(function (data) {
+            alertBs.removeClass('alert-success alert-danger');
+            alertBs.addClass('alert-success');
+            alertBs.text(data);
+            alertBs.show();
+        }, function (data) {
+            alertBs.removeClass('alert-success alert-danger');
+            alertBs.addClass('alert-danger');
+            alertBs.text(data.responseText);
+            alertBs.show();
+        });
+    });
+</script>
