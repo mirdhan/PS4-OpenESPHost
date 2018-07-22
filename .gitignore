@@ -8,4 +8,4 @@ www/.idea
 .DS_Store
 node_modules
 data/**
-data/.gitkeep
+!data/.gitkeep
