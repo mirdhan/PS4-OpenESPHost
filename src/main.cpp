@@ -51,7 +51,7 @@ void loadConfiguration(const char *filename, Configuration &config)
 
 void saveConfiguration(const char *filename, const Configuration &config)
 {
-    char *backupFilename = strcat((char *)filename, ".bak");
+    String backupFilename = String(filename) + ".bak";
     SPIFFS.rename(filename, backupFilename);
     // Open file for writing
     File file = SPIFFS.open(filename, "w"); // Opens a file for writing only. Overwrites the file if the file exists. If the file does not exist, creates a new file for writing.
