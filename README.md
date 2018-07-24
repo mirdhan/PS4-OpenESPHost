@@ -34,6 +34,10 @@
 - VV1LD/Stooged: Kernel Dumper
 - Stooged: App2USB
 - Stooged: DB_SG_Backup
+- Stooged: Cache Install
+- Stooged: FS Dumper
+- LightningMods: FTP RW
+- Zer0xFF: React PSPlus
 - ValentinBreiz: Linux Loader
 
 ## Bugs and feature requests
