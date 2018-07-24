@@ -58,4 +58,5 @@ Contributions are welcome!
 - qwertyuiop
 - xVortex
 - Stooged
+- [Tinkerman](http://tinkerman.cat/optimizing-files-for-spiffs-with-gulp/)
 - Anonymous
