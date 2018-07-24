@@ -51,13 +51,16 @@ void loadConfiguration(const char *filename, Configuration &config)
 
 void saveConfiguration(const char *filename, const Configuration &config)
 {
+    /* Create backup file */
     String backupFilename = String(filename) + ".bak";
     SPIFFS.rename(filename, backupFilename);
+    
     // Open file for writing
     File file = SPIFFS.open(filename, "w"); // Opens a file for writing only. Overwrites the file if the file exists. If the file does not exist, creates a new file for writing.
     if (!file)
     {
         Serial.println("Failed to create file");
+        // Restore backup file
         SPIFFS.rename(backupFilename, filename);
         return;
     }
@@ -67,17 +70,18 @@ void saveConfiguration(const char *filename, const Configuration &config)
     // Parse the root object
     JsonObject &root = jsonBuffer.createObject();
 
-    // Set the values
+    /* Set the values */
     root["ssid"] = config.ssid;
     root["password"] = config.password;
     root["ip_address"] = config.ip_address.toString();
     root["subnet"] = config.subnet.toString();
     root["gateway"] = config.gateway.toString();
 
-    // Serialize JSON to file
+    /* Serialize JSON to file */
     if (root.printTo(file) == 0)
     {
         Serial.println("Failed to write to file");
+        // Restore backup file
         SPIFFS.rename(backupFilename, filename);
     }
 
@@ -111,18 +115,12 @@ void setup()
 
     /* Settings up WebServer */
     webServer.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
-
-    /* Implement restart route */
     webServer.on("/esp8266/restart", HTTP_POST, [](AsyncWebServerRequest *request) {
         ESP.restart();
     });
-
-    /* Implement reset route */
     webServer.on("/esp8266/reset", HTTP_POST, [](AsyncWebServerRequest *request) {
         ESP.reset();
     });
-
-    /* Implement information route */
     webServer.on("/esp8266/information", HTTP_GET, [](AsyncWebServerRequest *request) {
         DynamicJsonBuffer jsonBuffer;
         JsonObject &root = jsonBuffer.createObject();
@@ -150,14 +148,13 @@ void setup()
         root["sketch_size"] = ESP.getSketchSize();
         root["vcc"] = ESP.getVcc();
         String response;
+        
         // Serialize JSON to Sring to send it
         root.printTo(response);
         jsonBuffer.clear();
 
         return request->send(200, "application/json", response);
     });
-
-    /* Implement update configuration route */
     webServer.on("/settings/update", HTTP_POST, [](AsyncWebServerRequest *request) {
         /* Validation Rules */
         if (!request->hasParam("ssid", true))
@@ -189,7 +186,7 @@ void setup()
         }
         config.ssid = p->value().c_str();
 
-        /* No verification for password because Wi-Fi Ap can be open */
+        /* No verification for password because Wi-Fi AP can be open */
         p = request->getParam("password", true);
         config.password = p->value().c_str();
 
