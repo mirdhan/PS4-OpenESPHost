@@ -21,9 +21,11 @@
 ## Quick start
 - Download the latest release
 - Flash your ESP8266 with [NodeMCU PyFlasher](https://github.com/marcelstoer/nodemcu-pyflasher/releases)
-- Connect your PS4 to the Wi-Fi (PS4_JAILBREAK)
+- Connect your PS4 to the Wi-Fi ([PS4_JAILBREAK](https://github.com/baptistecdr/PS4-OpenESPHost/blob/1c338694e28d1f92cd61d42bff66cbf41c0d737f/www/settings.json#L2))
 - Access to a page via the navigator
 - Enjoy !
+
+
 
 ## What's included
 
