@@ -39,6 +39,9 @@
 - LightningMods: FTP RW
 - Zer0xFF: React PSPlus
 - ValentinBreiz: Linux Loader
+- MiraProject: MiraHEN
+- Theorywrong: OrbisAFR
+- Stooged: DB_Restore
 
 ## Bugs and feature requests
 
@@ -52,11 +55,16 @@ Contributions are welcome!
 
 ## Thanks to
 
+- CTurt
 - Flatz
 - idc
 - Joon
 - qwertyuiop
 - xVortex
 - Stooged
+- Theorywrong
+- ValentinBreiz
+- LightningMods
+- Zer0xFF
 - [Tinkerman](http://tinkerman.cat/optimizing-files-for-spiffs-with-gulp/)
 - Anonymous
