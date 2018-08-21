@@ -14,6 +14,7 @@
 
 - [Quick start](#quick-start)
 - [What's included](#whats-included)
+- [How to build](#how-to-build)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Contributing](#contributing)
 - [Contibutors](#contributors)
@@ -24,8 +25,6 @@
 - Connect your PS4 to the Wi-Fi ([PS4_JAILBREAK](https://github.com/baptistecdr/PS4-OpenESPHost/blob/1c338694e28d1f92cd61d42bff66cbf41c0d737f/www/settings.json#L2))
 - Access to a page via the navigator
 - Enjoy !
-
-
 
 ## What's included
 
@@ -44,6 +43,19 @@
 - MiraProject: MiraHEN
 - Theorywrong: OrbisAFR
 - Stooged: DB_Restore
+
+## How to build
+
+- Install [Visual Studio Code](https://code.visualstudio.com)
+- Install [PlatformIO IDE](https://platformio.org)
+- Clone the project
+- Install Gulp globally
+- Install project dependencies
+- Install Node dependencies
+- PlatformIO Build
+- PlatformIO Upload
+- Execute 'gulp' command
+- Upload SPIFFS image
 
 ## Bugs and feature requests
 
