@@ -18,6 +18,7 @@
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Contributing](#contributing)
 - [Contibutors](#contributors)
+- [Thanks to](#thanks-to)
 
 ## Quick start
 - Download the latest release
