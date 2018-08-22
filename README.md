@@ -41,8 +41,7 @@
 - LightningMods: FTP RW
 - Zer0xFF: React PSPlus
 - ValentinBreiz: Linux Loader
-- MiraProject: MiraHEN
-- Theorywrong: OrbisAFR
+- MiraDevTeam: MiraFW
 - Stooged: DB_Restore
 
 ## How to build
